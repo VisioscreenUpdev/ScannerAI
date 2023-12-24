@@ -5,7 +5,7 @@ import streamlit as st
 import base64
 
 # Replace with your actual OpenAI API key
-api_key = "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"
+api_key = st.secrets["openaikey"]
 systPrompt = """
     You will be provided with a picture of a publicity you will need to described the product as the field below, describe it in French. Max 4000 chars.
     {
