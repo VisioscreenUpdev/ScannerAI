@@ -9,7 +9,7 @@ api_key = st.secrets["openaikey"]
 systPrompt = """
     You will be provided with a picture of a publicity you will need to described the product as the field below, describe it in French. Max 4000 chars.
     {
-        Description du Produit: "Description of the product , max 256 chars",
+        Description du Produit: "Description of the product/s only , max 256 chars",
         Offre: "The price of the product or offer in percents",
         Compagnie: "Name of the company",
         Couleurs: "Get me the main colors and colors id of the flyer except white",
