@@ -9,14 +9,19 @@ api_key = st.secrets["openaikey"]
 systPrompt = """
     You will be provided with a picture of a publicity you will need to described the product as the field below, describe it in French. Max 4000 chars.
     {
-        Produit: "Description of the product",
-        Prix: "The price of the product or offer",
+        Description du Produit: "Description of the product , max 256 chars",
+        Offre: "The price of the product or offer in percents",
         Compagnie: "Name of the company",
-        Couleur: "The principales colors",
-        Evenement: "If special event give event name"
+        Couleurs: "Get me the main colors and colors id of the flyer except white",
+        Evenement: "Event name"
     }
 """
-
+# systPrompt = """
+#     You will be provided with a picture of a publicity you will need to described the product as the field below, describe it in French. Max 4000 chars.
+#     {
+#         Salaire Brut Annuel: "Le salaire Brut Annuel du bulletin de salaire"
+#     }
+# """
 async def process_chat(image_content, system_prompt=None, is_url=True):
     try:
         async with aiohttp.ClientSession() as session:
