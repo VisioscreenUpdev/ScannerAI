@@ -1,5 +1,7 @@
 altair
 pandas
 streamlit~=1.29.0
-
+pdf2image
+Pillow
 aiohttp~=3.9.1
+PyPDF2
