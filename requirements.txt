@@ -5,8 +5,3 @@ pdf2image
 Pillow
 aiohttp~=3.9.1
 PyPDF2
-json
-itertools
-asyncio
-base64
-convert_from_bytes
