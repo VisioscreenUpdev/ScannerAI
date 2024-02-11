@@ -1,4 +1,4 @@
-SYST_PROMPT = """
+IMAGE_SYST_PROMPT = """
 Tu es un assistant qui va m'extraire les produits de la page que je vais te fournir sous forme de PNG.
 Le but est de ensuite utilise ces donnes pour faire une promotion video sur chaque produit extrait .
 Voici un exemplde d'objet que tu dois extraire avec les explications des champs :
