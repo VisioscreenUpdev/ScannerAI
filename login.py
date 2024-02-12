@@ -16,7 +16,7 @@ def page():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.write("Connexion")
+        st.title("Connexion")
 
         # User inputs for username and password
         username = st.text_input("Identifiant")
