@@ -10,20 +10,20 @@ def check_credentials(username, password):
 
 # Creating a simple login form
 def page():
-    st.title('Login Page')
+    st.image("logo.svg")
 
     # Create two columns for layout
     col1, col2 = st.columns(2)
 
     with col1:
-        st.write("## Login Here")
+        st.write("Connexion")
 
         # User inputs for username and password
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
+        username = st.text_input("Identifiant")
+        password = st.text_input("Mot de passe", type="password")
 
         # Login button
-        if st.button('Login'):
+        if st.button('Se connecter'):
             # Check if credentials are correct
             if check_credentials(username, password):
                 st.success('Login Successful!')
@@ -31,6 +31,6 @@ def page():
                 st.session_state['authenticated'] = True
                 st.experimental_rerun()
             else:
-                st.error('Incorrect Username/Password')
+                st.error('Mot de passe incorrect')
 
 
