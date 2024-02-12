@@ -22,9 +22,10 @@ async def scan_image(image_content):
 
             payload = {
                 'model': 'gpt-4-vision-preview',
+                "temperature": 0,
                 'max_tokens': 4096,
                 'messages': [
-                    {'role': 'system', 'content': constants.IMAGE_SYST_PROMPT},
+                    {'role': 'system', 'content': constants.IMAGE_SYST_PROMPT_TEST},
                     {'role': 'user', 'content': user_message_content}
                 ]
             }
@@ -42,3 +43,24 @@ async def scan_image(image_content):
     except Exception as error:
         print("Error processing chat:", error)
         print("result ", response_data['choices'][0]['message']['content'])
+
+async def process_text(text, json):
+    try:
+        async with aiohttp.ClientSession() as session:
+            payload = {
+                'model': 'gpt-4',
+                "temperature": 0,
+                'messages': [
+                    {'role': 'system', 'content': f"{constants.TEXT_SYST_PROMPT} {text} "},
+                    {'role': 'user', 'content': f"Voici le json renvoie moi un json uniquement sans aucun autres informations:{json}"}
+                ],
+            }
+
+            headers = {'Authorization': f'Bearer {api_key}'}
+            async with session.post('https://api.openai.com/v1/chat/completions', json=payload, headers=headers) as response:
+                response_data = await response.json()
+                print("AAAAA",response_data)
+                return response_data
+    except Exception as error:
+        print("Error processing chat:", error)
+        return None
