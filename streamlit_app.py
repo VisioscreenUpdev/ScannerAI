@@ -107,6 +107,9 @@ def parse_pages_input(pages_input, max_page_num):
         for part in pages_input.split(','):
             if '-' in part:
                 start, end = map(int, part.split('-'))
+                if end > max_page_num:
+                    st.error(f"Une ou plusieurs pages ne sont pas dans l'intervalle du catalogue 1-{max_page_num}")
+                    return
                 pages.extend(range(start, min(end, max_page_num) + 1))
             else:
                 page = int(part)
@@ -129,4 +132,4 @@ def main():
         login.page()  # Show the login page if not authenticated
 
 if __name__ == '__main__':
-    upload_pdf_page()
+    main()
