@@ -20,14 +20,14 @@ def show_tables(json_data):
     st.title('Produits à Tarif Unique')
     if len(one_price_item) > 0:
         df = pd.DataFrame(one_price_item)
-        st.dataframe(df, width=5500)
+        st.data_editor(df, width=5500)
     else:
         st.info("Aucun produit à Tarif Unique trouvé")
 
     st.title('Produits à Deux Tarifs')
     if len(two_prices_items) > 0:
         df = pd.DataFrame(two_prices_items)
-        st.dataframe(df, width=5500)
+        st.data_editor(df, width=5500)
     else:
         st.info("Aucun produit à deux tarifs trouvé")
 
@@ -77,8 +77,9 @@ def analyze_selected_pages(pages,pdf_bytes):
 
 
 
-
 def upload_pdf_page():
+    if 'result' not in st.session_state:
+        st.session_state['result'] = []
     st.image("logo.svg")
     st.title("IA Scanner")
     uploaded_pdf = st.file_uploader("Veuillez importer un PDF", type=["pdf"])
@@ -89,16 +90,18 @@ def upload_pdf_page():
             max_page_num = len(reader.pages)
         except Exception as e:
             st.error("La tentative de traitement du PDF a échoué. Veuillez vérifier que le fichier est valide.")
-            print(f"La tentative de traitement du PDF a échoué. Veuillez vérifier que le fichier est valide. Détail de l'erreur : {e}")
+            print(f"Erreur lors du traitement du PDF : {e}")
             return
         pages_input = st.text_input("Entrez les numéros des pages à analyser (par exemple, 1,3,5 ou 2-4)", value="1")
         pages = parse_pages_input(pages_input, max_page_num)
-
         if st.button("Analyze PDF ✨") and pages:
-            result = analyze_selected_pages(pages,pdf_bytes)
-            # finalResult = extractDate(result)
-            st.json(result)
-            show_tables(result)
+            st.session_state['result'] = analyze_selected_pages(pages,pdf_bytes)
+            # Optional: Directly display the result for debugging
+            # st.json(st.session_state['result'])
+    if st.session_state['result']:
+        # Now, correctly call show_tables with the result
+        show_tables(st.session_state['result'])
+
 
 
 def parse_pages_input(pages_input, max_page_num):
@@ -132,4 +135,4 @@ def main():
         login.page()  # Show the login page if not authenticated
 
 if __name__ == '__main__':
-    main()
+    upload_pdf_page()
