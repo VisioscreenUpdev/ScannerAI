@@ -9,24 +9,41 @@ from pdf2image import convert_from_bytes
 import io
 from login import check_credentials
 
+def dataframe_with_selections(json):
+    df =pd.DataFrame(json)
+    df_with_selections = df.copy()
+    df_with_selections.insert(0, "Select", False)
+
+    # Get dataframe row-selections from user with st.data_editor
+    edited_df = st.data_editor(
+        df_with_selections,
+        hide_index=True,
+        column_config={"Select": st.column_config.CheckboxColumn(required=True)},
+        num_rows="dynamic",
+    )
+
+    # Filter the dataframe using the temporary column, then drop the column
+    selected_rows = edited_df[edited_df.Select]
+    return selected_rows.drop('Select', axis=1)
 
 def show_tables(json_data):
     two_price_field = "Prix UNITE 2"
-    two_prices_items = [objet for objet in json_data if objet.get('Prix UNITE 2') != '/']
-    one_price_item = [objet for objet in json_data if objet.get('Prix UNITE 2') == '/']
+    two_prices_items = [objet for objet in json_data if objet.get(two_price_field) != '/']
+    one_price_item = [objet for objet in json_data if objet.get(two_price_field) == '/']
 
+    st.info("Les résultats ci-dessous ont été analysés par l'IA, qui, bien que performante, n'est pas infaillible. Il est important de vérifier et parfois corriger ses analyses.")
 
     st.title('Produits à Tarif Unique')
     if len(one_price_item) > 0:
         df = pd.DataFrame(one_price_item)
-        st.data_editor(df, width=5500)
+        edited_df = st.data_editor(df,num_rows ="dynamic", hide_index=True)
     else:
         st.info("Aucun produit à Tarif Unique trouvé")
 
     st.title('Produits à Deux Tarifs')
     if len(two_prices_items) > 0:
         df = pd.DataFrame(two_prices_items)
-        st.data_editor(df, width=5500)
+        st.data_editor(df, hide_index=True)
     else:
         st.info("Aucun produit à deux tarifs trouvé")
 
@@ -83,7 +100,14 @@ def upload_pdf_page():
             # Optional: Directly display the result for debugging
             # st.json(st.session_state['result'])
     if st.session_state['result']:
-        show_tables(st.session_state['result'])
+        # show_tables(st.session_state['result'])
+        st.title("Voici le résultat")
+        st.info(
+            "Les résultats ci-dessous ont été analysés par l'IA, qui, bien que performante, n'est pas infaillible. Il est important de vérifier et parfois corriger ses analyses.")
+        selection =dataframe_with_selections(st.session_state['result'])
+        st.write("Votre Selection:")
+        st.dataframe(selection,hide_index=True)
+        st.button("Exporter la selection au logiciel d'edition",disabled=True)
 
 
 def parse_pages_input(pages_input, max_page_num):
