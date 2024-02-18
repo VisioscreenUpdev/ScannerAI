@@ -1,36 +1,40 @@
 import streamlit as st
+from streamlit_authenticator import Authenticate
+import streamlit as st
+import bcrypt
 
-# Hardcoded user credentials
-PASSWORD = st.secrets["password"]
 
-
-# Function to check if the entered credentials match the hardcoded ones
-def check_credentials(username, password):
-    return password == PASSWORD
-
-# Creating a simple login form
-def page():
+def check_credentials():
+    # Hardcoded credentials for demonstration purposes
     st.image("logo.svg")
+    PASSWORD = st.secrets["password"]
+    print(PASSWORD)
+    print("PASSWORD")
 
-    # Create two columns for layout
-    col1, col2 = st.columns(2)
+    credentials = {
+        'usernames': {
+            'admin': {
+                'name': 'Admin User',
+                'password': PASSWORD,  # Hashing 'admin' password
+                'email': 'admin@example.com',
+            }
+        }
+    }
 
-    with col1:
-        st.title("Connexion")
+    # Instantiate the Authenticate class
+    auth = Authenticate(credentials, cookie_name='auth', key='secret_key')
 
-        # User inputs for username and password
-        username = st.text_input("Identifiant")
-        password = st.text_input("Mot de passe", type="password")
+    # Define a function to create the login form
+    # Use the login method from the Authenticate class
+    name, authentication_status, username = auth.login(location='main')
 
-        # Login button
-        if st.button('Se connecter'):
-            # Check if credentials are correct
-            if check_credentials(username, password):
-                st.success('Login Successful!')
-                # You can add your app's main functions here
-                st.session_state['authenticated'] = True
-                st.experimental_rerun()
-            else:
-                st.error('Mot de passe incorrect')
+    # Check if login was successful
+    if authentication_status:
+        return True
+        # Additional logic here for authenticated users
+    elif authentication_status == False:
+        st.error('Mot de passe incorrect')
+        return False
+    # For no input, do not display any message
 
-
+    # Call the login form function to display the form
