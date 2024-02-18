@@ -81,7 +81,7 @@ def analyze_selected_pages(pages, pdf_bytes):
 def upload_pdf_page():
     if 'result' not in st.session_state:
         st.session_state['result'] = []
-    st.title("IA Scanner :)")
+    st.title("IA Scanner")
 
     uploaded_pdf = st.file_uploader("Veuillez importer un PDF", type=["pdf"])
     if uploaded_pdf:
@@ -107,7 +107,7 @@ def upload_pdf_page():
         selection =dataframe_with_selections(st.session_state['result'])
         st.write("Votre Selection:")
         st.dataframe(selection,hide_index=True)
-        st.button("Exporter la selection au logiciel d'edition",disabled=True)
+        st.button("Exporter la selection vers logiciel d'edition",disabled=True)
 
 
 def parse_pages_input(pages_input, max_page_num):
