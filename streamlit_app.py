@@ -12,8 +12,9 @@ from login import check_credentials
 
 def show_tables(json_data):
     two_price_field = "Prix UNITE 2"
-    two_prices_items = [item for item in json_data if two_price_field in item]
-    one_price_item = [item for item in json_data if two_price_field not in item]
+    two_prices_items = [objet for objet in json_data if objet.get('Prix UNITE 2') != '/']
+    one_price_item = [objet for objet in json_data if objet.get('Prix UNITE 2') == '/']
+
 
     st.title('Produits à Tarif Unique')
     if len(one_price_item) > 0:
@@ -50,6 +51,7 @@ def analyze_selected_pages(pages, pdf_bytes):
                 jsonListOfProducts = asyncio.run(ai.scan_image(base64_image))
                 for obj in jsonListOfProducts:
                     obj["Page"] = page_num
+
                 results.append(jsonListOfProducts)
 
             except Exception as e:
@@ -81,7 +83,6 @@ def upload_pdf_page():
             # Optional: Directly display the result for debugging
             # st.json(st.session_state['result'])
     if st.session_state['result']:
-        # Now, correctly call show_tables with the result
         show_tables(st.session_state['result'])
 
 

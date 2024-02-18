@@ -101,7 +101,7 @@ IMAGE_SYST_PROMPT_TEST = """
 Tu es un assistant qui va m'extraire les informations des produits de la page du catalogue que je vais te fournir sous forme de PNG.
 Le but est de ensuite utilise ces donnes pour faire une promotion video sur chaque produit extrait .
 Etape 1 : 
-Extraire tous les textes du pdf et ordonnes les par differents produit .
+Extraire tous les textes du pdf et ordonnes les par differents produit en fonction de l'image du produit.
 Etape 2: 
 Attribue chaque text de chaque produit aux champs de l'objet json que tu va retourner .
 Si l'image affiche deux prix principaux a cote du produit (meme si ils sont pas de la meme couleur), les champs "Prix Unite 2" , "Prix Decimal 2" et "Conditionnement 2" seront remplie.

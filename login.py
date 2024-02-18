@@ -8,8 +8,6 @@ def check_credentials():
     # Hardcoded credentials for demonstration purposes
     st.image("logo.svg")
     PASSWORD = st.secrets["password"]
-    print(PASSWORD)
-    print("PASSWORD")
 
     credentials = {
         'usernames': {
