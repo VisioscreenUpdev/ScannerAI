@@ -81,7 +81,7 @@ def analyze_selected_pages(pages, pdf_bytes):
 def upload_pdf_page():
     if 'result' not in st.session_state:
         st.session_state['result'] = []
-    st.title("IA Scanner")
+    st.title("IA Scanner :)")
 
     uploaded_pdf = st.file_uploader("Veuillez importer un PDF", type=["pdf"])
     if uploaded_pdf:
