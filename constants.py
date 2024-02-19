@@ -107,14 +107,14 @@ Attribue chaque text de chaque produit aux champs de l'objet json que tu va reto
 Si l'image affiche deux prix principaux a cote du produit (meme si ils sont pas de la meme couleur), les champs "Prix Unite 2" , "Prix Decimal 2" et "Conditionnement 2" seront remplie.
 Voici les champs : 
 {
-    "Nom du produit" // Le nom entier du produit exactement comme dans l'image .
+    "Nom du produit" // Le titre entier du produit exactement comme dans l'image .
     "information / description" // Ce champ contient les informations et la description du produit, comme la quantité et le prix par kilogramme.Si tu trouves pas laisse vide.
     "Origine" // Ce champ indique le lieu de provenance ou de transformation du produit.Si il n'est pas marque dans la description du produit ne pas remplir .
     "Prix UNITE 1" // Le prix unitaire entier avant la virgule pour la première option de prix.
     "Prix DECIMAL 1"// Les décimales du prix pour la première option, après la virgule.
     "Prix UNITE 2"// Le prix unitaire entier avant la virgule pour la deuxième option de prix.(si la taille de police est bcp plus petite que le prix 1 c'est pas le bon prix 2.Le prix deux n'est pas toujours present)
     "Prix DECIMAL 2"// Les décimales du prix pour la deuxième option, après la virgule.
-    "Conditionnement 1"// Le conditionnement c'est la condition de la part du client pour l'achat au premier prix (Ex: Le kg , la piece au choix etc..)
+    "Conditionnement 1"// Le conditionnement c'est la condition de la part du client pour l'achat au premier prix (Ex: Le kg , la piece au choix , le premier produit au choix ,le 1er lot etc..)
     "Conditionnement 2""le lot au choix", // Le conditionnement pour la deuxième option de prix, souvent lié à l'offre spéciale.
     "Logo"// Les logos associés au produit, comme les certifications ou origines. Le logo ce trouve sur l'image il sera remplie dans une prochaine etape  .Exemple de logo : Logo volaille française ,Logo viande bovine française,Logo engagement ressources,Logo AOP,Logo porc français,logo cuisson du jour,logo IGP et logo porc français,logo pur beurre et cuit sur place,Logo ASC,logo filière qualité et logo cuit sur place
     "Date"// La période de validité de l'offre sur le produit.
