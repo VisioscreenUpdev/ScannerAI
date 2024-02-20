@@ -134,6 +134,15 @@ def parse_pages_input(pages_input, max_page_num):
 
 
 if __name__ == '__main__':
+    st.markdown("""
+                <style>
+                .stActionButton {visibility: hidden;}
+                /* Hide the Streamlit footer */
+                .reportview-container .main footer {visibility: hidden;}
+                /* Additionally, hide Streamlit's hamburger menu - optional */
+                .sidebar .sidebar-content {visibility: hidden;}
+                </style>
+                """, unsafe_allow_html=True)
     isAuth = check_credentials()
     if isAuth:
         upload_pdf_page()
