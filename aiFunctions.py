@@ -25,7 +25,7 @@ async def scan_image(image_content):
                 "temperature": 0,
                 'max_tokens': 4096,
                 'messages': [
-                    {'role': 'system', 'content': constants.IMAGE_SYST_PROMPT_TEST},
+                    {'role': 'system', 'content': constants.IMAGE_SYST_PROMPT},
                     {'role': 'user', 'content': user_message_content}
                 ]
             }
@@ -36,7 +36,6 @@ async def scan_image(image_content):
                 response_text = await response.text()
                 response_data = json.loads(response_text)
                 if 'choices' in response_data:
-                    print("API response:", response_data['choices'][0]['message']['content'])
                     return parse_content_to_json(response_data['choices'][0]['message']['content'])
                 else:
                     print("API response:", response_data)
